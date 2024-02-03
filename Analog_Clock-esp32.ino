@@ -91,6 +91,7 @@ void setup() {
   tft.begin();
   tft.setRotation(0);
   tft.fillScreen(GC9A01A_BLACK);
+  tft.fillCircle(clock_center_x, clock_center_y, SCREEN_DIAMETER / 10, GC9A01A_BLUE);
 
   int16_t xPos, yPos;
   uint16_t width, height;
@@ -116,7 +117,6 @@ void setup() {
   EEPROM.get(SSID_ADDR, ssid);
   EEPROM.get(WIFI_PASSWORD_ADDR, wifiPassword);
   Serial.printf("\nConnecting to WIFI '%s'...", String(ssid));
-  tft.fillCircle(clock_center_x, clock_center_y, SCREEN_DIAMETER / 10, GC9A01A_BLUE);
   WiFi.mode(WIFI_STA);
   WiFi.hostname(HOSTNAME);
   WiFi.begin(String(ssid), String(wifiPassword));
@@ -175,3 +175,4 @@ void loop() {
     check_for_updates();
   }
 }
+
