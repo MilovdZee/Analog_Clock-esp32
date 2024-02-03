@@ -1,3 +1,5 @@
+#define CURRENT_FIRMWARE_VERSION 1
+
 #define PASSWORD "RoundClockPassword"
 #define HOSTNAME "RondKlokje"
 
@@ -26,6 +28,9 @@
 #define SCREEN_DIAMETER 240
 
 #define SECOND_SPLIT 5
+
+#define BUFFER_SIZE 150
+#define ERROR_VALUE -1
 
 const int clock_center_x = SCREEN_DIAMETER / 2;
 const int clock_center_y = SCREEN_DIAMETER / 2;

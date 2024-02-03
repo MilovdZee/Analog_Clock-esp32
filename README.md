@@ -8,7 +8,7 @@ The 3D print STL files are in the 3D folder. The 'printhouder' is meant for a 'D
 
 <img src="https://raw.githubusercontent.com/MilovdZee/Analog_Clock-esp32/main/images/d1-mini-esp32.jpg" width=200/>
 
-## Setup LITTLEFS filesystem
+## Setup LittleFS filesystem
 
 ```
 ~/.arduino15/packages/esp32/tools/mklittlefs/3.0.0-gnu12-dc7f933/mklittlefs \

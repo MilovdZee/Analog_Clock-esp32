@@ -1,7 +1,7 @@
 #define UPDATE_HOST "raw.githubusercontent.com"
 #define UPDATE_PORT 443
-#define VERSION_FILE_LOCATION "/MilovdZee/DraaibankStepper-v2/main/firmware/version.txt"
-#define FIRMWARE_FILE_LOCATION "/MilovdZee/DraaibankStepper-v2/main/firmware/DraaibankStepper-v2.ino-%d.bin"
+#define VERSION_FILE_LOCATION "/MilovdZee/Analog_Clock-esp32/main/firmware/version.txt"
+#define FIRMWARE_FILE_LOCATION "/MilovdZee/Analog_Clock-esp32/main/firmware/Analog_Clock-esp32.ino-%d.bin"
 
 #define CONNECTION_TIMEOUT 5000
 
@@ -144,7 +144,6 @@ void update_firmware(int version) {
       bool can_begin = Update.begin(content_length);
       if (can_begin) {
         Serial.printf("Begin OTA of %ld bytes...\n", content_length);
-        hide_status_label();
         ota_start();
         Update.onProgress(ota_on_progress);
 

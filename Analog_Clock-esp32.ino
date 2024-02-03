@@ -5,6 +5,7 @@
 #include <EEPROM.h>
 #include <LittleFS.h>
 #include <time.h>
+#include <WiFiClientSecure.h>
 
 #include "SPI.h"
 #include "Adafruit_GFX.h"
@@ -110,6 +111,15 @@ void setup() {
   Serial.print("IP address: ");
   String ipAddress = WiFi.localIP().toString();
   Serial.println(ipAddress);
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.printf("Checking for firmware updates... (installed v%d)\n", CURRENT_FIRMWARE_VERSION);
+    int newest_version = get_update_version();
+    if (newest_version > CURRENT_FIRMWARE_VERSION) {
+      Serial.println("Updating firmware...");
+      update_firmware(newest_version);
+    }
+  }
 
   tft.setTextSize(2);
   int16_t xPos, yPos;
