@@ -13,7 +13,6 @@
 #include "clock.h"
 #include "esp_sntp.h"
 
-
 #define FORMAT_LITTLEFS_IF_FAILED false
 
 boolean timeIsSet = false;
@@ -134,14 +133,7 @@ void setup() {
   String ipAddress = WiFi.localIP().toString();
   Serial.println(ipAddress);
 
-  if (WiFi.status() == WL_CONNECTED) {
-    Serial.printf("Checking for firmware updates... (installed v%d)\n", CURRENT_FIRMWARE_VERSION);
-    int newest_version = get_update_version();
-    if (newest_version > CURRENT_FIRMWARE_VERSION) {
-      Serial.println("Updating firmware...");
-      update_firmware(newest_version);
-    }
-  }
+  check_for_updates();
 
   tft.getTextBounds(ipAddress, 0, 100, &xPos, &yPos, &width, &height);
   tft.setTextColor(GC9A01A_WHITE);
@@ -177,4 +169,9 @@ void loop() {
   server.handleClient();
 
   updateClock();
+
+  if (time(nullptr) % (3600 * 24) == 0) {
+    // run once a day
+    check_for_updates();
+  }
 }

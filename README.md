@@ -21,7 +21,7 @@ The 3D print STL files are in the 3D folder. The 'printhouder' is meant for a 'D
 ```
 ~/.arduino15/packages/esp32/tools/mklittlefs/3.0.0-gnu12-dc7f933/mklittlefs \
   --page 256 \
-  --size 0x1C2000 \
+  --size 0x1d0000 \
   --block 4096 \
   --create data data.img
 ```
@@ -30,5 +30,5 @@ The 3D print STL files are in the 3D folder. The 'printhouder' is meant for a 'D
 python ~/.arduino15/packages/esp32/tools/esptool_py/4.5.1/esptool.py \
   --port /dev/ttyACM0 \
   --baud 921600 \
-  write_flash 0x204000 data.img
+  write_flash 0x230000 data.img
 ```

@@ -178,3 +178,14 @@ void update_firmware(int version) {
   // stop the connection
   client.stop();
 }
+
+void check_for_updates() {
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.printf("Checking for firmware updates... (installed v%d)\n", CURRENT_FIRMWARE_VERSION);
+    int newest_version = get_update_version();
+    if (newest_version > CURRENT_FIRMWARE_VERSION) {
+      Serial.println("Updating firmware...");
+      update_firmware(newest_version);
+    }
+  }
+}
