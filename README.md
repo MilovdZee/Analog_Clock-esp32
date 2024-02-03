@@ -1,5 +1,7 @@
 # Analog Clock
 
+<img src="https://raw.githubusercontent.com/MilovdZee/Analog_Clock-esp32/main/images/main_screen.jpeg" width=200/>
+
 ## Setup LITTLEFS filesystem
 
 ```
