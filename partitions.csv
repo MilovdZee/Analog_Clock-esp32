@@ -1,0 +1,6 @@
+# Name,   Type, SubType, Offset,  Size, Flags
+nvs,      data, nvs,     36K,       20K,
+otadata,  data, ota,     ,           8K,
+ota_0,    app,  ota_0,   ,         960K,
+ota_1,    app,  ota_1,   ,         960K,
+spiffs,   data, spiffs,  ,        1800K,
