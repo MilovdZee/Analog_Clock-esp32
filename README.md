@@ -2,6 +2,12 @@
 
 <img src="https://raw.githubusercontent.com/MilovdZee/Analog_Clock-esp32/main/images/clocks.jpg" width=500/>
 
+## 3D print files
+
+The 3D print STL files are in the 3D folder. The 'printhouder' is meant for a 'D1 mini esp32'.
+
+<img src="https://raw.githubusercontent.com/MilovdZee/Analog_Clock-esp32/main/images/d1-mini-esp32.jpg" width=200/>
+
 ## Setup LITTLEFS filesystem
 
 ```
