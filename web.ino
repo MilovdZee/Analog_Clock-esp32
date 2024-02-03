@@ -30,7 +30,7 @@ void handleWifi() {
     EEPROM.put(SSID_ADDR, ssid);
     if (String(wifiPassword).length() > 0) EEPROM.put(WIFI_PASSWORD_ADDR, wifiPassword);
     EEPROM.commit();
-    
+
     delay(500);
     ESP.restart();
   }
@@ -45,9 +45,11 @@ void handleWifi() {
     <h1>WiFi Settings</h1>\
       <form method=\"POST\" action=\"/wifi\">\
         SSID:</br>\
-        <input type=\"text\" name=\"ssid\" value=\"" + String(ssid) + "\"></br></br>\
+        <input type=\"text\" name=\"ssid\" value=\""
+                    + String(ssid) + "\"></br></br>\
         Password:</br>\
-        <input type=\"text\" name=\"password\" value=\"" + String(wifiPassword) + "\">\
+        <input type=\"text\" name=\"password\" value=\""
+                    + String(wifiPassword) + "\">\
         <input type=\"submit\" value=\"Submit\">\
       </form>\
     </div>\

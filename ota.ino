@@ -1,25 +1,32 @@
 static void ota_start() {
-    Serial.println("OTA update start");
-    tft.fillScreen(GC9A01A_BLACK);
-    tft.fillCircle(clock_center_x, clock_center_y, 50, GC9A01A_BLUE);
-    delay(1000);
-    tft.fillScreen(GC9A01A_BLACK);
+  Serial.println("OTA update start");
+  tft.fillScreen(GC9A01A_BLACK);
+  tft.fillCircle(clock_center_x, clock_center_y, 50, GC9A01A_BLUE);
+  delay(1000);
+  tft.fillScreen(GC9A01A_BLACK);
 }
 
 static void ota_on_progress(int progress, int total) {
-    int percentage = progress * 100 / total;
-    Serial.printf("OTA update progress: %u\r\n", percentage);
-    
+  static int last_shown = 0;
+
+  int percentage = progress * 100 / total;
+  if (last_shown != percentage) {
+    if (percentage % 10 == 0) {
+      Serial.printf("OTA update progress: %u\r\n", percentage);
+    }
     float angle = 2.0 * pi / 110.0 * percentage;
     int x = clock_center_x + (SCREEN_DIAMETER / 2 - 50) * sin(angle);
     int y = clock_center_y - (SCREEN_DIAMETER / 2 - 50) * cos(angle);
     tft.fillCircle(x, y, 10, GC9A01A_YELLOW);
+
+    last_shown = percentage;
+  }
 }
 
 void setupOTA() {
   // Setup OTA updates
   ArduinoOTA.setPort(3232); // default 3232
-  
+
   char buffer[50];
   snprintf(buffer, sizeof(buffer), "%s_%d", HOSTNAME, random(9999));
   ArduinoOTA.setHostname(buffer);
@@ -35,9 +42,7 @@ void setupOTA() {
     delay(1000);
     tft.fillScreen(GC9A01A_BLACK);
   });
-  ArduinoOTA.onProgress([](int progress, int total) {
-    ota_on_progress(progress, total);
-  });
+  ArduinoOTA.onProgress(ota_on_progress);
   ArduinoOTA.onError([](ota_error_t error) {
     char* errorMessage = "Unknown";
     if (error == OTA_AUTH_ERROR) errorMessage = "Auth Failed";

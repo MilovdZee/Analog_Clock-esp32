@@ -30,5 +30,5 @@ The 3D print STL files are in the 3D folder. The 'printhouder' is meant for a 'D
 python ~/.arduino15/packages/esp32/tools/esptool_py/4.5.1/esptool.py \
   --port /dev/ttyACM0 \
   --baud 921600 \
-  write_flash 0x1F0000 data.img
+  write_flash 0x204000 data.img
 ```
