@@ -2,6 +2,14 @@
 
 <img src="https://raw.githubusercontent.com/MilovdZee/Analog_Clock-esp32/main/images/clocks.jpg" width=500/>
 
+## Setup
+
+- Write the LittleFS
+- Write the program using the Arduino IDE
+- Connect your computer or phone to th 'RondKlokje' wifi network
+- Open http://192.168.4.1
+- Goto 'wifi' and enter the credentials
+
 ## 3D print files
 
 The 3D print STL files are in the 3D folder. The 'printhouder' is meant for a 'D1 mini esp32'.
