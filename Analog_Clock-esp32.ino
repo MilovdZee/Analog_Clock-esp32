@@ -170,9 +170,11 @@ void loop() {
 
   updateClock();
 
-  if (time(nullptr) % (3600 * 24) == 0) {
+  static time_t last_check_time = -1;
+  time_t now = time(nullptr);
+  if (now != last_check_time && now % (3600 * 24) == 0) {
     // run once a day
+    last_check_time = now;
     check_for_updates();
   }
 }
-
