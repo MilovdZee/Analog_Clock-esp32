@@ -32,12 +32,6 @@ uint8_t currentFaceNumber;
 HandPosition hoursHandPositions[15];
 HandPosition minutesHandPositions[15];
 
-// This overrides the default 1-hour interval (in milliseconds)
-// Note: NTP servers usually request a minimum of 15 seconds between polls.
-uint32_t sntp_update_delay_MS_rfc_not_less_than_15000() {
-    return 1 * 60 * 1000UL; // Example: Update every 12 hours instead
-}
-
 // Record the NPT set time
 void timeUpdated(struct timeval *tv) {
   timeIsSet = true;
