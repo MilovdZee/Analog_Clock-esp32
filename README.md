@@ -2,6 +2,15 @@
 
 <img src="https://raw.githubusercontent.com/MilovdZee/Analog_Clock-esp32/main/images/clocks.jpg" width=500/>
 
+## All in one
+
+run `./compile.sh`. This will do the following:
+- download the arduino-cli
+- download old version of the ESP32 core (otherwise it won't fit)
+- create the SPIFFS partition data
+- compile the sketch
+- upload the data and sketch to the board
+
 ## Setup
 
 - Write the LittleFS
@@ -19,7 +28,7 @@ The 3D print STL files are in the 3D folder. The 'printhouder' is meant for a 'D
 ## Setup LittleFS filesystem
 
 ```
-~/.arduino15/packages/esp32/tools/mklittlefs/3.0.0-gnu12-dc7f933/mklittlefs \
+~/.arduino15/packages/esp32/tools/mklittlefs/4.0.2-db0513a/mklittlefs \
   --page 256 \
   --size 0x1d0000 \
   --block 4096 \
@@ -27,7 +36,7 @@ The 3D print STL files are in the 3D folder. The 'printhouder' is meant for a 'D
 ```
 
 ```
-python ~/.arduino15/packages/esp32/tools/esptool_py/4.5.1/esptool.py \
+~/.arduino15/packages/esp32/tools/esptool_py/5.2.0/esptool \
   --port /dev/ttyACM0 \
   --baud 921600 \
   write_flash 0x230000 data.img

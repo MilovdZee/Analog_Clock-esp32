@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Arduino.h>
+#include <SPI.h>
 #include <Adafruit_GC9A01A.h>
 
 class Pixel {
