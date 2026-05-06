@@ -116,7 +116,7 @@ void setup() {
   // Setup the wifi
   EEPROM.get(SSID_ADDR, ssid);
   EEPROM.get(WIFI_PASSWORD_ADDR, wifiPassword);
-  Serial.printf("\nConnecting to WIFI '%s'...", String(ssid));
+  Serial.printf("\nConnecting to WIFI '%s'... ", String(ssid));
   WiFi.mode(WIFI_STA);
   WiFi.hostname(HOSTNAME);
   WiFi.setAutoReconnect(true);

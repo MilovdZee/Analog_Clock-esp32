@@ -1,4 +1,4 @@
-#define CURRENT_FIRMWARE_VERSION 9
+#define CURRENT_FIRMWARE_VERSION 10
 
 #define PASSWORD "RoundClockPassword"
 #define HOSTNAME "RondKlokje"
