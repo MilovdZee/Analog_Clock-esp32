@@ -131,7 +131,7 @@ void setup() {
     WiFi.onEvent([](WiFiEvent_t event, WiFiEventInfo_t info) {
       Serial.print("Disconnected! Reason: ");
       Serial.println(info.wifi_sta_disconnected.reason);
-      WiFi.begin(ssid, wifiPassword); // Force a fresh connection
+      WiFi.begin(String(ssid), String(wifiPassword)); // Force a fresh connection
       if (WiFi.waitForConnectResult() != WL_CONNECTED) {
         Serial.println("Re-Connection Failed!");
       } else {
