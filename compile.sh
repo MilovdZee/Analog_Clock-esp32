@@ -51,9 +51,9 @@ arduino-cli $CLI_CONFIG compile --fqbn esp32:esp32:esp32 \
   --build-property "build.partitions=partitions" \
   ./Analog_Clock-esp32.ino
 
-echo "Uploading firmware..."
-arduino-cli $CLI_CONFIG upload \
-  --fqbn esp32:esp32:esp32 \
-  --port $PORT \
-  --input-dir "./build_cache"
+#echo "Uploading firmware..."
+#arduino-cli $CLI_CONFIG upload \
+#  --fqbn esp32:esp32:esp32 \
+#  --port $PORT \
+#  --input-dir "./build_cache"
 
