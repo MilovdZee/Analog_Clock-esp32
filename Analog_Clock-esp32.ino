@@ -127,6 +127,18 @@ void setup() {
     WiFi.softAP(HOSTNAME);
   } else {
     Serial.println("Connected to WIFI...");
+
+    WiFi.onEvent([](WiFiEvent_t event, WiFiEventInfo_t info) {
+      Serial.print("Disconnected! Reason: ");
+      Serial.println(info.wifi_sta_disconnected.reason);
+      WiFi.begin(ssid, wifiPassword); // Force a fresh connection
+      if (WiFi.waitForConnectResult() != WL_CONNECTED) {
+        Serial.println("Re-Connection Failed!");
+      } else {
+        Serial.println("Re-Connected to WIFI...");
+      }
+    }, WiFiEvent_t::ARDUINO_EVENT_WIFI_STA_DISCONNECTED);
+
     tft.fillCircle(clock_center_x, clock_center_y, SCREEN_DIAMETER / 10, GC9A01A_GREEN);
   }
   Serial.print("IP address: ");
