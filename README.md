@@ -11,6 +11,13 @@ run `./compile.sh`. This will do the following:
 - compile the sketch
 - upload the data and sketch to the board
 
+## Update CA
+- echo | openssl s_client -servername raw.githubusercontent.com -connect raw.githubusercontent.com:443 -showcerts | grep -E "subject=|issuer="
+- Take highest depth: depth=2 C=US, O=Internet Security Research Group, CN=ISRG Root X1
+  => ISRG Root X1
+  => cat /etc/ssl/certs/ISRG_Root_X1.pem
+- use this cert as the CA
+
 ## Setup
 
 - Write the LittleFS
