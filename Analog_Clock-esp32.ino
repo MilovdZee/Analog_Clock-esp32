@@ -119,6 +119,7 @@ void setup() {
   Serial.printf("\nConnecting to WIFI '%s'...", String(ssid));
   WiFi.mode(WIFI_STA);
   WiFi.hostname(HOSTNAME);
+  WiFi.setAutoReconnect(true);
   WiFi.begin(String(ssid), String(wifiPassword));
   if (WiFi.waitForConnectResult() != WL_CONNECTED) {
     Serial.println("Connection Failed! Continuing...");
@@ -129,14 +130,12 @@ void setup() {
     Serial.println("Connected to WIFI...");
 
     WiFi.onEvent([](WiFiEvent_t event, WiFiEventInfo_t info) {
-      Serial.print("Disconnected! Reason: ");
-      Serial.println(info.wifi_sta_disconnected.reason);
-      WiFi.begin(String(ssid), String(wifiPassword)); // Force a fresh connection
-      if (WiFi.waitForConnectResult() != WL_CONNECTED) {
-        Serial.println("Re-Connection Failed!");
-      } else {
-        Serial.println("Re-Connected to WIFI...");
-      }
+      Serial.print("WiFi Restored! IP address: ");
+      Serial.println(WiFi.localIP());
+    }, WiFiEvent_t::ARDUINO_EVENT_WIFI_STA_GOT_IP);
+
+    WiFi.onEvent([](WiFiEvent_t event, WiFiEventInfo_t info) {
+      Serial.printf("Disconnected! Reason: %u\n", info.wifi_sta_disconnected.reason);
     }, WiFiEvent_t::ARDUINO_EVENT_WIFI_STA_DISCONNECTED);
 
     tft.fillCircle(clock_center_x, clock_center_y, SCREEN_DIAMETER / 10, GC9A01A_GREEN);
@@ -177,6 +176,13 @@ void setup() {
 }
 
 void loop() {
+  static unsigned long lastCheck = 0;
+  if (WiFi.status() != WL_CONNECTED && millis() - lastCheck > 30000) {
+    Serial.println("WiFi down, waiting for auto-reconnect...");
+    lastCheck = millis();
+    WiFi.begin();
+  }
+
   ArduinoOTA.handle();
   server.handleClient();
 

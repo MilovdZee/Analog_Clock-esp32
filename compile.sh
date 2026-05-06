@@ -2,6 +2,14 @@
 
 PORT=/dev/ttyACM0
 
+# Parse optional flags
+NO_WRITE=false
+for arg in "$@"; do
+  if [ "$arg" == "--noWrite" ]; then
+    NO_WRITE=true
+  fi
+done
+
 PATH=./bin:$PATH
 if [[ ! -f bin/arduino-cli ]]; then
   echo "Downloading and installing the arduino-cli..."
@@ -35,11 +43,15 @@ echo "Creating data image for in SPIFFS partition..."
   --block 4096 \
   --create data data.img
 
-echo "Write data image to SPIFFS partition..."
-python /tmp/arduino_clock_cli/packages/esp32/tools/esptool_py/4.5.1/esptool.py \
-  --port $PORT \
-  --baud 921600 \
-  write_flash 0x230000 data.img
+if [ "$NO_WRITE" = false ]; then
+  echo "Write data image to SPIFFS partition..."
+  python /tmp/arduino_clock_cli/packages/esp32/tools/esptool_py/4.5.1/esptool.py \
+    --port $PORT \
+    --baud 921600 \
+    write_flash 0x230000 data.img
+else
+  echo "Skipping SPIFFS flash (--noWrite enabled)"
+fi
 
 # Compile with clean build path
 echo "Compiling..."
@@ -51,9 +63,13 @@ arduino-cli $CLI_CONFIG compile --fqbn esp32:esp32:esp32 \
   --build-property "build.partitions=partitions" \
   ./Analog_Clock-esp32.ino
 
-#echo "Uploading firmware..."
-#arduino-cli $CLI_CONFIG upload \
-#  --fqbn esp32:esp32:esp32 \
-#  --port $PORT \
-#  --input-dir "./build_cache"
+if [ "$NO_WRITE" = false ]; then
+  echo "Uploading firmware..."
+  arduino-cli $CLI_CONFIG upload \
+    --fqbn esp32:esp32:esp32 \
+    --port $PORT \
+    --input-dir "./build_cache"
+else
+  echo "Skipping firmware flash (--noWrite enabled)"
+fi
 
